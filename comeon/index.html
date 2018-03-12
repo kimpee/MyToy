@@ -22,14 +22,13 @@
 <body>
 
   <script type="text/javascript">
-
     /*
-        1. 首先是显示两个图片
-        2. 实现控制
-        3. 判断碰撞
-        4. 重新渲染
+            1. 首先是显示两个图片
+            2. 实现控制
+            3. 判断碰撞
+            4. 重新渲染
 
-    */
+        */
     document.addEventListener('DOMContentLoaded', function(e) {
       var canvas = document.createElement('canvas');
       var ctx = canvas.getContext('2d');
@@ -38,19 +37,26 @@
       canvas.height = window.innerHeight;
       canvas.style.background = 'url("images/background.jpg")'
 
-      var ballisload = false;
       var ball = new Image();
+
+      function render() {
+        ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+        ctx.drawImage(ball, staticBall.x, staticBall.y);
+        ctx.drawImage(ball, moveBall.x, moveBall.y);
+        ctx.fillStyle = 'rgb(255,255,255)';
+        ctx.font = '36px Helvetica';
+        ctx.fillText('一共碰撞了' + collisionCount + '次', 202, 202);
+      }
       ball.onload = function() {
-        ballisload = true;
-        staticBall.x = -50 + Math.random() * window.innerWidth + 1;
-        staticBall.y = -50 + Math.random() * window.innerHeight + 1;
         moveBall.x = -50 + Math.random() * window.innerWidth + 1;
         moveBall.y = -50 + Math.random() * window.innerHeight + 1;
-        ctx.drawImage(ball,staticBall.x,staticBall.y);
-        ctx.drawImage(ball,moveBall.x,moveBall.y);
-        ctx.fillStyle='rgb(255,255,255)';
-        ctx.font = '36px Helvetica';
-        ctx.fillText('一共碰撞了'+collisionCount+'次',202,202);
+        reset();
+        render();
+        // ctx.drawImage(ball,staticBall.x,staticBall.y);
+        // ctx.drawImage(ball,moveBall.x,moveBall.y);
+        // ctx.fillStyle='rgb(255,255,255)';
+        // ctx.font = '36px Helvetica';
+        // ctx.fillText('一共碰撞了'+collisionCount+'次',202,202);
       }
 
       ball.src = 'images/sixball.png';
@@ -61,7 +67,6 @@
       function reset() {
         staticBall.x = -50 + Math.random() * window.innerWidth + 1;
         staticBall.y = -50 + Math.random() * window.innerHeight + 1;
-
 
       }
       var speed = 0.56; //移动的速度
@@ -88,25 +93,51 @@
           moveBall.x = -150;
         }
         if (moveBall.x < -150) {
-          moveBall.x= window.innerWidth;
+          moveBall.x = window.innerWidth;
         }
         if (moveBall.y > window.innerHeight) {
           moveBall.y = -150;
         }
         if (moveBall.y < -150) {
-          moveBall.y= window.innerHeight;
+          moveBall.y = window.innerHeight;
         }
-        ctx.clearRect(0,0,window.innerWidth,window.innerHeight);
-        ctx.drawImage(ball,moveBall.x,moveBall.y);
-        ctx.drawImage(ball,staticBall.x,staticBall.y);
+        render();
+        // ctx.clearRect(0,0,window.innerWidth,window.innerHeight);
+        // ctx.drawImage(ball,staticBall.x,staticBall.y);
+        // ctx.drawImage(ball,moveBall.x,moveBall.y);
         // ctx.fillStyle='rgb(255,255,255)';
-        ctx.fillText('一共碰撞了'+collisionCount+'次',202,202);
+        // ctx.font = '36px Helvetica';
+        // ctx.fillText('一共碰撞了'+collisionCount+'次',202,202);
         if (moveBall.x <= (staticBall.x + 80) && staticBall.x <= (moveBall.x + 80) && moveBall.y <= (staticBall.y + 80) && staticBall.y <= (moveBall.y + 80)) {
           collisionCount++;
           reset();
         }
       }
-      var per =Date.now();
+
+      var totalTime = 2000; // 100等于一秒
+      function countDown() {
+        // console.log('算秒');
+        totalTime--;
+        if (totalTime >= 0) {
+          var time = totalTime / 100;
+          if (time > 10) {
+            var strtime = (time + '').substr(0, 2);
+            ctx.fillStyle = 'rgb(255,255,255)';
+            ctx.font = '36px Helvetica';
+            ctx.fillText('还有' + strtime + '秒结束游戏', 100, 100);
+          } else if (time > 0) {
+            var strtime = (time + '').substr(0, 1);
+            ctx.fillStyle = 'rgb(255,255,255)';
+            ctx.font = '36px Helvetica';
+            ctx.fillText('还有' + strtime + '秒结束游戏', 100, 100);
+          } else {
+            alert('游戏结束,一共碰撞了' + collisionCount + '次');
+            window.top.document.location.reload();
+            // window.reload();
+          }
+        }
+      };
+      var per = Date.now();
 
       function main() {
         var now = Date.now();
@@ -116,9 +147,11 @@
 
 
         window.requestAnimationFrame(main);
+        countDown();
       };
       main();
-      // reset();
+      // countDown();
+      reset();
       // console.log(ctx);
     });
   </script>
