@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>comeon</title>
+  <style media="screen">
+    /* canvas{
+      background: url("images/background.jpg");
+    } */
+
+    body {
+      padding: 0;
+      margin: 0;
+      overflow: hidden;
+    }
+  </style>
+</head>
+
+<body>
+
+  <script type="text/javascript">
+
+    /*
+        1. 首先是显示两个图片
+        2. 实现控制
+        3. 判断碰撞
+        4. 重新渲染
+
+    */
+    document.addEventListener('DOMContentLoaded', function(e) {
+      var canvas = document.createElement('canvas');
+      var ctx = canvas.getContext('2d');
+      document.body.appendChild(canvas);
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      canvas.style.background = 'url("images/background.jpg")'
+
+      var ballisload = false;
+      var ball = new Image();
+      ball.onload = function() {
+        ballisload = true;
+        staticBall.x = -50 + Math.random() * window.innerWidth + 1;
+        staticBall.y = -50 + Math.random() * window.innerHeight + 1;
+        moveBall.x = -50 + Math.random() * window.innerWidth + 1;
+        moveBall.y = -50 + Math.random() * window.innerHeight + 1;
+        ctx.drawImage(ball,staticBall.x,staticBall.y);
+        ctx.drawImage(ball,moveBall.x,moveBall.y);
+        ctx.fillStyle='rgb(255,255,255)';
+        ctx.font = '36px Helvetica';
+        ctx.fillText('一共碰撞了'+collisionCount+'次',202,202);
+      }
+
+      ball.src = 'images/sixball.png';
+
+      var moveBall = {};
+      var staticBall = {};
+
+      function reset() {
+        staticBall.x = -50 + Math.random() * window.innerWidth + 1;
+        staticBall.y = -50 + Math.random() * window.innerHeight + 1;
+
+
+      }
+      var speed = 0.56; //移动的速度
+      var keydown = {};
+      var collisionCount = 0;
+      window.onkeydown = function(e) {
+        keydown[e.keyCode] = true;
+      };
+      window.onkeyup = function(e) {
+        delete keydown[e.keyCode];
+      }
+
+      function update(m) {
+        if (38 in keydown) {
+          moveBall.y -= speed * m;
+        } else if (40 in keydown) {
+          moveBall.y += speed * m;
+        } else if (37 in keydown) {
+          moveBall.x -= speed * m;
+        } else if (39 in keydown) {
+          moveBall.x += speed * m;
+        }
+        if (moveBall.x > window.innerWidth) {
+          moveBall.x = -150;
+        }
+        if (moveBall.x < -150) {
+          moveBall.x= window.innerWidth;
+        }
+        if (moveBall.y > window.innerHeight) {
+          moveBall.y = -150;
+        }
+        if (moveBall.y < -150) {
+          moveBall.y= window.innerHeight;
+        }
+        ctx.clearRect(0,0,window.innerWidth,window.innerHeight);
+        ctx.drawImage(ball,moveBall.x,moveBall.y);
+        ctx.drawImage(ball,staticBall.x,staticBall.y);
+        // ctx.fillStyle='rgb(255,255,255)';
+        ctx.fillText('一共碰撞了'+collisionCount+'次',202,202);
+        if (moveBall.x <= (staticBall.x + 80) && staticBall.x <= (moveBall.x + 80) && moveBall.y <= (staticBall.y + 80) && staticBall.y <= (moveBall.y + 80)) {
+          collisionCount++;
+          reset();
+        }
+      }
+      var per =Date.now();
+
+      function main() {
+        var now = Date.now();
+        var time = now - per;
+        update(time);
+        per = now;
+
+
+        window.requestAnimationFrame(main);
+      };
+      main();
+      // reset();
+      // console.log(ctx);
+    });
+  </script>
+</body>
+
+</html>
