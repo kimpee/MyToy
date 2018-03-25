@@ -16,6 +16,9 @@
       margin: 0;
       overflow: hidden;
     }
+    /* canvas{
+      background-size: cover;
+    } */
   </style>
 </head>
 
@@ -37,6 +40,7 @@
       canvas.height = window.innerHeight;
       canvas.style.background = 'url("images/background.jpg")'
 
+      canvas.style.backgroundSize = 'cover';
       var ball = new Image();
 
       function render() {
