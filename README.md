@@ -3,4 +3,6 @@
   
   物体为上网随便找的,然后稍微处理了一下,可能有点丑.请见谅.
   
+  操作: 键盘方向键
+  
    <a href="https://les-lee.github.io/MyToy/comeon/">访问地址点这里</a>
