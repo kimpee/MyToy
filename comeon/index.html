@@ -33,6 +33,7 @@
 
         */
     var targetName = "李雪群";
+    var targetContorl = '宠爱';
     document.addEventListener('DOMContentLoaded', function(e) {
       var canvas = document.createElement('canvas');
       var ctx = canvas.getContext('2d');
@@ -52,7 +53,7 @@
         ctx.drawImage(ball, moveBall.x, moveBall.y);
         ctx.fillStyle = 'rgb(255,255,255)';
         ctx.font = '36px Helvetica';
-        ctx.fillText('一共殴打了' + targetName + collisionCount + '次', 202, 202);
+        ctx.fillText('一共' + targetContorl + '了' + targetName + collisionCount + '次', 202, 202);
       }
       ball.onload = function() {
         moveBall.x = -50 + Math.random() * window.innerWidth + 1;
@@ -138,7 +139,7 @@
             ctx.font = '36px Helvetica';
             ctx.fillText('还有' + strtime + '秒结束游戏', 100, 100);
           } else {
-            alert('游戏结束,一共殴打了' + targetName + collisionCount + '次');
+            alert('游戏结束,一共' + targetContorl + '了' + targetName + collisionCount + '次');
             window.top.document.location.reload();
             // window.reload();
           }
