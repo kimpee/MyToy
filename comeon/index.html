@@ -46,6 +46,7 @@
       function render() {
         ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
         ctx.drawImage(ball, staticBall.x, staticBall.y);
+        ctx.fillText('李雪群', staticBall.x, staticBall.y);
         ctx.drawImage(ball, moveBall.x, moveBall.y);
         ctx.fillStyle = 'rgb(255,255,255)';
         ctx.font = '36px Helvetica';
