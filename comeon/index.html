@@ -32,6 +32,7 @@
             4. 重新渲染
 
         */
+    var targetName = "李雪群";
     document.addEventListener('DOMContentLoaded', function(e) {
       var canvas = document.createElement('canvas');
       var ctx = canvas.getContext('2d');
@@ -47,11 +48,11 @@
       function render() {
         ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
         ctx.drawImage(ball, staticBall.x, staticBall.y);
-        ctx.fillText('李雪群', staticBall.x - 50, staticBall.y - 50);
+        ctx.fillText(targetName, staticBall.x - 50, staticBall.y - 50);
         ctx.drawImage(ball, moveBall.x, moveBall.y);
         ctx.fillStyle = 'rgb(255,255,255)';
         ctx.font = '36px Helvetica';
-        ctx.fillText('一共碰撞了' + collisionCount + '次', 202, 202);
+        ctx.fillText('一共殴打了' + targetName + collisionCount + '次', 202, 202);
       }
       ball.onload = function() {
         moveBall.x = -50 + Math.random() * window.innerWidth + 1;
