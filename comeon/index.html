@@ -48,7 +48,7 @@
       function render() {
         ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
         ctx.drawImage(ball, staticBall.x, staticBall.y);
-        ctx.fillText(targetName, staticBall.x - 50, staticBall.y - 50);
+        ctx.fillText(targetName, staticBall.x, staticBall.y);
         ctx.drawImage(ball, moveBall.x, moveBall.y);
         ctx.fillStyle = 'rgb(255,255,255)';
         ctx.font = '36px Helvetica';
@@ -138,7 +138,7 @@
             ctx.font = '36px Helvetica';
             ctx.fillText('还有' + strtime + '秒结束游戏', 100, 100);
           } else {
-            alert('游戏结束,一共碰撞了' + collisionCount + '次');
+            alert('游戏结束,一共殴打了' + targetName + collisionCount + '次');
             window.top.document.location.reload();
             // window.reload();
           }
