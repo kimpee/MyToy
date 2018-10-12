@@ -38,7 +38,8 @@
       document.body.appendChild(canvas);
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-      canvas.style.background = 'url("images/background.jpg")'
+      canvas.style.background = 'url("images/background.jpg")';
+      ctx.fillStyle = "orange";
 
       canvas.style.backgroundSize = 'cover';
       var ball = new Image();
@@ -46,7 +47,7 @@
       function render() {
         ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
         ctx.drawImage(ball, staticBall.x, staticBall.y);
-        ctx.fillText('李雪群', staticBall.x, staticBall.y);
+        ctx.fillText('李雪群', staticBall.x - 50, staticBall.y - 50);
         ctx.drawImage(ball, moveBall.x, moveBall.y);
         ctx.fillStyle = 'rgb(255,255,255)';
         ctx.font = '36px Helvetica';
